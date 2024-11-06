@@ -4,11 +4,11 @@ Sứ mệnh của chúng tôi trong việc xây dựng một phần mềm thiế
 <h2>Hướng dẫn cài đặt</h2>
 Yêu cầu hệ điều hành (AlmaLinux 8 | Rocky linux 8| Ubuntu 22.04) để có thể sử dụng được phần mềm, bạn paste đoạn mã này vào terminal của bạn rồi phần mềm sẽ tự động thiết lập.
 
-<pre>curl -sO https://wptangtoc.com/share/wptangtoc-ols && bash wptangtoc-ols</pre>
+<pre>curl -sO https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/wptangtoc-ols && bash wptangtoc-ols</pre>
 
 Nếu bạn muốn cài đặt luôn sẵn mã nguồn WordPress vào domain luôn thì có thể dùng đoạn này:
 
-<pre>curl -sO https://wptangtoc.com/share/wptangtoc-ols && bash wptangtoc-ols wp</pre>
+<pre>curl -sO https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/wptangtoc-ols && bash wptangtoc-ols wp</pre>
 
 Nếu bạn chưa có VPS: thì bạn có thể tìm kiếm một đơn vị cung cấp VPS nào đó mà bạn cảm thấy uy tín bạn có thể thuê ở đó. Để có thể sử dụng công cụ này.
 
