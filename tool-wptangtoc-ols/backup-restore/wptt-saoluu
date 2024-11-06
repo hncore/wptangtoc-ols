@@ -102,7 +102,7 @@ fi
 _runing "$sao_luu_ma_nguon website $NAME"
 echo ''
 if [[ -d /usr/local/lsws/"$NAME"/html/web/app ]]; then
-    cd /usr/local/lsws/"$NAME"/html/web && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env -x "app/ai1wm-backups/*" -x "app/cache/*" -x "app/updraft/*" -x "app/ai1wm-backups/*" -x "error_log" -x "app/debug.log" -x "app/uploads/backupbuddy_backups/*" -x "app/backups-dup-pro/*" -x "app/backups-dup-lite/*"
+    cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env -x "app/ai1wm-backups/*" -x "app/cache/*" -x "app/updraft/*" -x "app/ai1wm-backups/*" -x "error_log" -x "app/debug.log" -x "app/uploads/backupbuddy_backups/*" -x "app/backups-dup-pro/*" -x "app/backups-dup-lite/*"
 elif [[ -d /usr/local/lsws/"$NAME"/html/wp-content ]]; then
     cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env -x "wp-content/ai1wm-backups/*" -x "wp-content/cache/*" -x "wp-content/updraft/*" -x "wp-content/ai1wm-backups/*" -x "error_log" -x "wp-content/debug.log" -x "wp-content/uploads/backupbuddy_backups/*" -x "wp-content/backups-dup-pro/*" -x "wp-content/backups-dup-lite/*"
 fi
