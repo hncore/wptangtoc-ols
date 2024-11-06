@@ -104,15 +104,17 @@ echo ''
 if [[ -d /usr/local/lsws/"$NAME"/html/web/app ]]; then
     cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env \
         -x "phpmyadmin/*" \
-        -x "app/ai1wm-backups/*" \
-        -x "app/cache/*" \
-        -x "app/updraft/*" \
-        -x "app/ai1wm-backups/*" \
-        -x "error_log" \
-        -x "app/debug.log" \
-        -x "app/uploads/backupbuddy_backups/*" \
-        -x "app/backups-dup-pro/*" \
-        -x "app/backups-dup-lite/*"
+        -x "web/app/ai1wm-backups/*" \
+        -x "web/app/cache/*" \
+        -x "web/app/upgrade/*" \
+        -x "web/app/upgrade-temp-backup/*" \
+        -x "web/app/updraft/*" \
+        -x "web/app/ai1wm-backups/*" \
+        -x "web/error_log" \
+        -x "web/app/debug.log" \
+        -x "web/app/uploads/backupbuddy_backups/*" \
+        -x "web/app/backups-dup-pro/*" \
+        -x "web/app/backups-dup-lite/*"
 elif [[ -d /usr/local/lsws/"$NAME"/html/wp-content ]]; then
     cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env \
         -x "phpmyadmin/*" \
