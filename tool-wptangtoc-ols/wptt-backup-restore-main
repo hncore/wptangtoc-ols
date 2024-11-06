@@ -31,7 +31,7 @@ options=(
 	"$xoa_file_backup"                                          #7
 	"$thiet_lap_backup_google_drive_rclone"                    #8
 	"$download_tai_file_backup_tu_dam_may"                         #9
-	"$huy_dang_ky_google_drive_hoac_onedrive"                                #10
+	"$huy_dang_ky_google_drive_hoac_onedrive_hoac_mega"            #10
 	"$sao_luu_tat_ca_website"                                   #11
 	"$sao_luu_tat_ca_website_uploads_len_dam_may" #12
 	"$tu_dong_xoa_file_backup_het_han"                #13
