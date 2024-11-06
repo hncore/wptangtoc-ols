@@ -120,11 +120,13 @@ cat <(crontab -l) <(echo "0 $thoi_gian_thuc_thi_preload_cache_bash * * * bash /e
 cat <(crontab -l) <(echo "*/5 * * * * bash /etc/wptt/preload-wptangtoc-api $NAME >/dev/null 2>&1") | crontab -
 
 
-if [[ -f /usr/local/lsws/$NAME/html/wp-content/plugins/wptangtoc/class/PreloadAllPHP.php ]];then
-. /etc/wptt/vhost/.$NAME.conf
-if [[ $phien_ban_php_domain = '' ]];then
-phien_ban_php_domain=$(php -v |grep cli | cut -c 4-7| sed 's/ //g')
+if [[ -f /usr/local/lsws/$NAME/html/wp-content/plugins/wptangtoc/class/PreloadAllPHP.php || -f /usr/local/lsws/$NAME/html/web/app/plugins/wptangtoc/class/PreloadAllPHP.php ]]; then
+    . /etc/wptt/vhost/.$NAME.conf
+    if [[ $phien_ban_php_domain = '' ]]; then
+        phien_ban_php_domain=$(php -v | grep cli | cut -c 4-7 | sed 's/ //g')
+    fi
 fi
+
 
 #chuyen doi vi du: 7.4 thanh 74
 phien_ban_php_domain=${phien_ban_php_domain//[-._]/}

@@ -159,7 +159,7 @@ if [[ $(cat /etc/passwd | cut -f1 -d ':' | grep -w $USER) = '' ]];then
 	exit
 fi
 
-version=$(curl -s https://wptangtoc.com/share/version-wptangtoc-ols.txt?domain-them=$NAME)
+version=$(curl -s https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/version-wptangtoc-ols.txt?domain-them=$NAME)
 echo "virtualhost $NAME {
 vhRoot                  /usr/local/lsws/$NAME/
 configFile              /usr/local/lsws/conf/vhosts/$NAME/$NAME.conf

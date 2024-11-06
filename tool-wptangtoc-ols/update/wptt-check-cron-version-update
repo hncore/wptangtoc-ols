@@ -1,8 +1,8 @@
 #!/bin/bash
 
-wptangtocols_version=$(curl -s https://wptangtoc.com/share/version-wptangtoc-ols.txt?kiem-tra-version-crond| head -1 | grep '\.')
+wptangtocols_version=$(curl -s https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/version-wptangtoc-ols.txt?kiem-tra-version-crond| head -1 | grep '\.')
 if [[ $wptangtocols_version = "" ]];then
-wptangtocols_version=$(curl -s https://raw.githubusercontent.com/wptangtoc/wptangtoc-ols/refs/heads/main/version-wptangtoc-ols.txt)
+wptangtocols_version=$(curl -s https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/version-wptangtoc-ols.txt)
 fi
 
 if [[ $wptangtocols_version ]];then

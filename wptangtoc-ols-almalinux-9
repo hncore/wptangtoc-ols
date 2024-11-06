@@ -27,7 +27,7 @@ if [[ "$check_root" != "root" ]]; then
 			echo "Vui lòng chuyển sang user Root. Vui lòng chạy lại lệnh cài đặt."
 			echo "Hướng dẫn login tài khoản root: https://wptangtoc.com/wptangtoc-ols-cau-hoi-thuong-gap/#Yeu_cau_tai_khoan_root_moi_cai_duoc_wptangtoc_ols"
 			echo "Khi hoàn tất thì hãy chạy lại lệnh:"
-			echo "curl -sO https://wptangtoc.com/share/wptangtoc-ols && bash wptangtoc-ols"
+			echo "curl -sO https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols && bash wptangtoc-ols"
 			rm -f wptangtoc-ols
 			exit
 		fi
@@ -189,10 +189,10 @@ fi
 tong_ram_gb=$(expr ${rong_ram_mb} / 1024)
 db_table_size=$(expr $tong_ram_gb \* 64 )
 buffer_db=$(expr $rong_ram_mb / 6)
-wptangtocols_version=$(curl -s https://wptangtoc.com/share/version-wptangtoc-ols.txt?domain-install=$NAME)
+wptangtocols_version=$(curl -s https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/version-wptangtoc-ols.txt?domain-install=$NAME)
 
 if [[ $wptangtocols_version = "" ]];then
-wptangtocols_version=$(curl -s https://raw.githubusercontent.com/wptangtoc/wptangtoc-ols/refs/heads/main/version-wptangtoc-ols.txt)
+wptangtocols_version=$(curl -s https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/version-wptangtoc-ols.txt)
 fi
 
 clear
@@ -1630,10 +1630,10 @@ sed -E -i "s/lsphp[0-9]+/lsphp$php_ver_chon/g" /usr/local/lsws/conf/vhosts/"$NAM
 
 # cai dat menu wptangtoc ols root
 cd
-wget http://wptangtoc.com/share/wptangtoc-ols.zip --no-check-certificate
+wget https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols.zip --no-check-certificate
 #link du phong
 if [[ ! -f wptangtoc-ols.zip ]];then
-wget https://github.com/wptangtoc/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols.zip --no-check-certificate
+wget https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols.zip --no-check-certificate
 fi
 
 #phan quyen thu muc wptangtoc-ols
@@ -1648,10 +1648,10 @@ chmod 750 /etc/wptt/vhost
 
 # cai dat menu wptangtoc ols user
 cd
-wget http://wptangtoc.com/share/wptangtoc-ols-user.zip --no-check-certificate
+wget https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols-user.zip --no-check-certificate
 #link du phong
 if [[ ! -f wptangtoc-ols-user.zip ]];then
-wget https://github.com/wptangtoc/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols-user.zip --no-check-certificate
+wget https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols-user.zip --no-check-certificate
 fi
 unzip -oq wptangtoc-ols-user.zip
 mv tool-wptangtoc-ols-user/* /etc/wptt-user/

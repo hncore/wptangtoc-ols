@@ -76,7 +76,7 @@ done
 
 if [[ "$check" = "y" ]]; then
 	_runing "Tối ưu heartbeat API"
-    wp plugin install https://wptangtoc.com/share/heartbeat-wptangtoc.zip --path=/usr/local/lsws/$NAME/html --activate --allow-root
+    wp plugin install https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/heartbeat-wptangtoc.zip --path=/usr/local/lsws/$NAME/html --activate --allow-root
 	. /etc/wptt/vhost/.$NAME.conf
     chown -R $User_name_vhost:$User_name_vhost /usr/local/lsws/$NAME/html/wp-content/plugins/heartbeat-wptangtoc
 	_rundone "Tối ưu heartbeat API"

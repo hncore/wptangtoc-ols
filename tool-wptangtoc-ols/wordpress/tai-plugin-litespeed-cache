@@ -94,7 +94,7 @@ fi
         sed -i "/WP_CACHE/d" /usr/local/lsws/"$NAME"/html/wp-config.php
         rm -rf /usr/local/lsws/"$NAME"/html/wp-content/cache
         rm -f /usr/local/lsws/"$NAME"/html/wp-content/object-cache.php
-        cd "$path" && wget https://wptangtoc.com/share/$data_wptangtoc --no-check-certificate
+        cd "$path" && wget https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/$data_wptangtoc --no-check-certificate
         wp plugin activate litespeed-cache --allow-root --path="$path"
         wp litespeed-option import $data_wptangtoc --path="$path" --allow-root
 wp option patch update litespeed.conf.server_ip $ip --path="$path" --allow-root
@@ -152,7 +152,7 @@ rm -f /usr/local/lsws/"$NAME"/html/wp-content/object-cache.php
 wp plugin install litespeed-cache --activate --allow-root --path="$path"
 echo "Hoan tat tai plugin LiteSpeed cache va kich hoat"
 echo "Dang toi uu theo cach cua wptangtoc"
-cd "$path" && wget https://wptangtoc.com/share/$data_wptangtoc
+cd "$path" && wget https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/$data_wptangtoc
 wp litespeed-option import $data_wptangtoc --path="$path" --allow-root
 rm -f $data_wptangtoc
 ip=$(curl -s myip.directadmin.com)

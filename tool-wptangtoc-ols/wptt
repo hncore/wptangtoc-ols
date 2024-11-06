@@ -239,7 +239,7 @@ function version() {
     . /etc/wptt/.wptt.conf
     RED='\033[0;31m'
     NC='\033[0m'
-    wptangtocols_version=$(curl -s https://wptangtoc.com/share/version-wptangtoc-ols.txt)
+    wptangtocols_version=$(curl -s https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/version-wptangtoc-ols.txt)
     if [[ "$wptangtocols_version" != "$version_wptangtoc_ols" ]]; then
         clear
         echo "========================================================================="

@@ -18,7 +18,7 @@ echo "..."
 sleep 2
 echo ".."
 echo "/-----------------------------------------------------------------------/"
-wptangtocols_version=$(curl -s https://wptangtoc.com/share/version-wptangtoc-ols.txt?domain-update="$Website_chinh")
+wptangtocols_version=$(curl -s https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/version-wptangtoc-ols.txt?domain-update="$Website_chinh")
 
 if [[ $wptangtocols_version = '' ]];then
 echoDo "$da_xay_ra_loi_vui_long_thu_lai_sau"
@@ -90,8 +90,8 @@ else
 		cd
 		rm -f wptangtoc-ols.zip
 		rm -f wptangtoc-ols-user.zip
-		wget -q http://wptangtoc.com/share/wptangtoc-ols-user.zip --no-check-certificate
-		wget -q http://wptangtoc.com/share/wptangtoc-ols.zip --no-check-certificate
+		wget -q https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols-user.zip --no-check-certificate
+		wget -q https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols.zip --no-check-certificate
 
 		if [[ ! -f wptangtoc-ols.zip ]];then
 			if [[ $wptangtocols_version ]];then
@@ -184,7 +184,7 @@ else
 
 		echo "$dang_tien_hanh_cap_nhat_vui_long_doi"
 		sleep 2
-		curl -sO https://wptangtoc.com/share/update && bash update
+		curl -sO https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/update && bash update
 		rm -f update
 		sed -i "/version_wptangtoc_ols/d" /etc/wptt/.wptt.conf
 		echo "version_wptangtoc_ols=$wptangtocols_version" >>/etc/wptt/.wptt.conf

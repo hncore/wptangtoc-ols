@@ -7,7 +7,7 @@ body {
     background: #daeeef;
 }
 .wptangtoc{
-background-image: url("https://wptangtoc.com/share/build-ols.png");
+background-image: url("https://github.com/hncore/wptangtoc-ols/blob/main/build-ols.png?raw=true");
     max-width: 512px;
     height: 512px;
     margin-left: auto;
