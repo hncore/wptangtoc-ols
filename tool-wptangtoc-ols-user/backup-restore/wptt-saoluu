@@ -119,14 +119,14 @@ if [[ $checkdathietlap ]]; then
     fi
     if [[ "$uploads" = "y" || "$ggdriver" = "1998" ]]; then
 		_runing "Uploads file backup lên Google Driver"
-        truoc_khi=$(rclone size wptangtoc:wptangtoc_ols_backup)
-		rclone copy /usr/local/lsws/"$NAME"/backup-website/$NAME$times.zip wptangtoc:wptangtoc_ols_backup/$NAME
+        truoc_khi=$(rclone size wptangtoc:hncore_backup)
+		rclone copy /usr/local/lsws/"$NAME"/backup-website/$NAME$times.zip wptangtoc:hncore_backup/$NAME
 		if [[ $sql_gz = '' ]];then
-			rclone copy /usr/local/lsws/"$NAME"/backup-website/$NAME$times.sql wptangtoc:wptangtoc_ols_backup/$NAME
+			rclone copy /usr/local/lsws/"$NAME"/backup-website/$NAME$times.sql wptangtoc:hncore_backup/$NAME
 		fi
 
 		if [[ $sql_gz ]];then
-			rclone copy /usr/local/lsws/"$NAME"/backup-website/$NAME$times.sql.gz wptangtoc:wptangtoc_ols_backup/$NAME
+			rclone copy /usr/local/lsws/"$NAME"/backup-website/$NAME$times.sql.gz wptangtoc:hncore_backup/$NAME
 		fi
 		_rundone "Uploads file backup lên Google Driver"
         if ! [[ "$ggdriver2" = "1998" || "$ggdriver2" = "12345" ]]; then

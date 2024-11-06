@@ -158,14 +158,14 @@ if [[ $checkdathietlap ]]; then
 		_runing "file backup uploads Google Drive"
 			fi
 
-        truoc_khi=$(rclone size wptangtoc:wptangtoc_ols_backup)
-		rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.zip wptangtoc:wptangtoc_ols_backup/$NAME
+        truoc_khi=$(rclone size wptangtoc:hncore_backup)
+		rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.zip wptangtoc:hncore_backup/$NAME
 		if [[ $sql_gz = '' ]];then
-			rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.sql wptangtoc:wptangtoc_ols_backup/$NAME
+			rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.sql wptangtoc:hncore_backup/$NAME
 		fi
 
 		if [[ $sql_gz ]];then
-			rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.sql.gz wptangtoc:wptangtoc_ols_backup/$NAME
+			rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.sql.gz wptangtoc:hncore_backup/$NAME
 		fi
 
 		if [[ $(cat ~/.config/rclone/rclone.conf | grep 'onedrive') ]];then

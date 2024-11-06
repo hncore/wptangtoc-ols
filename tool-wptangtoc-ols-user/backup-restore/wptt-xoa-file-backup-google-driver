@@ -33,7 +33,7 @@ while [[ $a = "y" ]]
 do
 	_runing "Tải danh sách từ Google Driver"
 	selects=()
-	x=$(rclone lsf wptangtoc:wptangtoc_ols_backup/"$NAME")
+	x=$(rclone lsf wptangtoc:hncore_backup/"$NAME")
 	while IFS= read -r line; do selects+=("$line"); done <<<"$x"
 		if [[ $selects = '' ]];then
 	_runloi "Tải danh sách từ Google Driver"
@@ -88,7 +88,7 @@ done
 if [[ "$dongy" = "y" ]]; then
 _runing "Xóa $file backup của website $NAME trên Google Driver"
 before_delete=$(rclone size wptangtoc:| grep 'size' | cut -f2 -d ':' | cut -f1 -d '(')
-rclone -v delete wptangtoc:wptangtoc_ols_backup/$NAME/$file
+rclone -v delete wptangtoc:hncore_backup/$NAME/$file
 _rundone "Xóa $file backup của website $NAME trên Google Driver"
 	echo "==================================================================="
 	echo "Dung luong thu muc truoc khi xoa	: ${before_delete}"
@@ -96,7 +96,7 @@ _rundone "Xóa $file backup của website $NAME trên Google Driver"
 	echo "==================================================================="
 fi
 
-if [[ $(rclone lsf wptangtoc:wptangtoc_ols_backup/"$NAME" |grep ".zip$\|.sql$\|.sql.gz$") ]];then
+if [[ $(rclone lsf wptangtoc:hncore_backup/"$NAME" |grep ".zip$\|.sql$\|.sql.gz$") ]];then
 echo "Bạn có muốn tiếp tục xóa file backup nữa không?: "
 prompt="Nhập lựa chọn của bạn [1-2]: "
 a="n"

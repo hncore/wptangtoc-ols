@@ -50,7 +50,7 @@ selects=()
 
 if [[ "$google" = "4" ]]; then
 	_runing "Đang tiến hành tải danh sách từ $cloud_service"
-	x=$(rclone lsf wptangtoc:wptangtoc_ols_backup/"$NAME")
+	x=$(rclone lsf wptangtoc:hncore_backup/"$NAME")
 	while IFS= read -r line; do selects+=("$line"); done <<<"$x"
 		if [[ $selects = '' ]];then
 			_runloi "Tiến hành tải danh sách từ $cloud_service ..."
@@ -133,7 +133,7 @@ done
 '
 _runing "Tải $file từ $cloud_service"
         rm -f /usr/local/backup-website/"$NAME"/"$file"
-        rclone copy wptangtoc:wptangtoc_ols_backup/"$NAME"/"$file" /usr/local/backup-website/"$NAME"
+        rclone copy wptangtoc:hncore_backup/"$NAME"/"$file" /usr/local/backup-website/"$NAME"
 _rundone "Tải $file từ $cloud_service"
     fi
 fi
@@ -215,7 +215,7 @@ if [[ "$dongy_taitiep" = 'y' ]]; then
 '
 
 _runing "Tải danh sách từ $cloud_service"
-x=$(rclone lsf wptangtoc:wptangtoc_ols_backup/$NAME)
+x=$(rclone lsf wptangtoc:hncore_backup/$NAME)
 while IFS= read -r line; do selects+=("$line"); done <<<"$x"
 	if [[ $selects = '' ]];then
 		_runloi "Tải danh sách từ $cloud_service"
@@ -276,7 +276,7 @@ while IFS= read -r line; do selects+=("$line"); done <<<"$x"
         if [[ "$dongy_taifile2" = 'y' ]]; then
 			_runing "Tải $file2 từ $cloud_service"
             rm -f /usr/local/backup-website/"$NAME"/"$file2"
-            rclone copy wptangtoc:wptangtoc_ols_backup/"$NAME"/"$file2" /usr/local/backup-website/"$NAME"
+            rclone copy wptangtoc:hncore_backup/"$NAME"/"$file2" /usr/local/backup-website/"$NAME"
 			_rundone "Tải $file2 từ $cloud_service"
         fi
     fi

@@ -333,9 +333,9 @@ fi
 	if [[ "$uploads" = "y" ]]; then
 		echo "-------------------------------------------------------------------------"
 		if [[ $(cat ~/.config/rclone/rclone.conf | grep 'onedrive') ]];then
-			echo "File backup trên OneDrive sẽ tự động lưu trữ tại thư mục: wptangtoc_ols_backup/$NAME"
+			echo "File backup trên OneDrive sẽ tự động lưu trữ tại thư mục: hncore_backup/$NAME"
 		else
-			echo "File backup trên Google Drive sẽ tự động lưu trữ tại thư mục: wptangtoc_ols_backup/$NAME"
+			echo "File backup trên Google Drive sẽ tự động lưu trữ tại thư mục: hncore_backup/$NAME"
 		fi
 	fi
 	echo "-------------------------------------------------------------------------"

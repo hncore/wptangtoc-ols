@@ -205,7 +205,7 @@ echo "-------------------------------------------------------------------------"
 echo "Duong dan luu tru thu muc backup ma nguon va database :$HOME/$NAME/backup-website  "
 if [[ "$uploads" = "y" ]]; then
 	echo "-------------------------------------------------------------------------"
-	echo "File backup trên Google Driver sẽ tự động lưu trữ tại thư mục: wptangtoc_ols_backup/$NAME"
+	echo "File backup trên Google Driver sẽ tự động lưu trữ tại thư mục: hncore_backup/$NAME"
 fi
 echo "-------------------------------------------------------------------------"
 echo "Nếu cần khôi phục lại website thì bạn hãy truy cập vào menu của WPTangToc OLS rồi sử dụng tính năng khôi phục website"

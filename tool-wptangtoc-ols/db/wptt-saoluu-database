@@ -155,13 +155,13 @@ if [[ $checkdathietlap ]]; then
 	fi
 	if [[ "$uploads" = "y" || "$ggdriver" = "1998" ]]; then
 		_runing "file backup database uploads Google Drive"
-		truoc_khi=$(rclone size wptangtoc:wptangtoc_ols_backup)
+		truoc_khi=$(rclone size wptangtoc:hncore_backup)
 		if [[ $sql_gz = '' ]];then
-			rclone copy /usr/local/backup-website/"$NAME"/$NAME$timedate.sql wptangtoc:wptangtoc_ols_backup/$NAME
+			rclone copy /usr/local/backup-website/"$NAME"/$NAME$timedate.sql wptangtoc:hncore_backup/$NAME
 		fi
 
 		if [[ $sql_gz ]];then
-			rclone copy /usr/local/backup-website/"$NAME"/$NAME$timedate.sql.gz wptangtoc:wptangtoc_ols_backup/$NAME
+			rclone copy /usr/local/backup-website/"$NAME"/$NAME$timedate.sql.gz wptangtoc:hncore_backup/$NAME
 		fi
 		_rundone "file backup database uploads Google Drive"
 		if ! [[ "$ggdriver2" = "1998" || "$ggdriver2" = "12345" ]]; then

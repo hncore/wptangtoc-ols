@@ -132,7 +132,7 @@ echo "========================================================================="
 echo "Hoàn tất kích hoạt tự động xóa file backup hết hạn Google Driver"
 echo "========================================================================="
 echo "Vào lúc 3 giờ sáng hàng ngày"
-echo "Hệ thống sẽ tự động xóa các file backup trong thư mục backup google driver: wptangtoc_ols_backup/$NAME file nào đã được tạo trước ngày $ngay ngày sẽ tự động xóa đi"
+echo "Hệ thống sẽ tự động xóa các file backup trong thư mục backup google driver: hncore_backup/$NAME file nào đã được tạo trước ngày $ngay ngày sẽ tự động xóa đi"
 echo "========================================================================="
 
 
