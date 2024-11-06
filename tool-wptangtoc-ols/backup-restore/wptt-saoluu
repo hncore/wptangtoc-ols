@@ -55,7 +55,7 @@ cd /usr/local/lsws/"$NAME"/html
 
 _runing "$sao_luu_database website $NAME"
 
-if [[ $sql_gz = '' ]];then
+if [[ $sql_gz == '' ]]; then
 mariadb-dump -u "$DB_User_web" -p"$DB_Password_web" "$DB_Name_web" >/usr/local/backup-website/$NAME/$NAME$times.sql
 fi
 
@@ -65,7 +65,7 @@ mariadb-dump -u "$DB_User_web" -p"$DB_Password_web" "$DB_Name_web" | gzip >/usr/
 fi
 
 
-if [[ $sql_gz = '' ]];then
+if [[ $sql_gz == '' ]]; then
 check_file_error_database=$(du -c /usr/local/backup-website/$NAME/$NAME$times.sql | awk '{print $1}' | sed '1d')
 if (( $check_file_error_database < 10 ));then
 tuanxacnhandb="0"
@@ -102,10 +102,31 @@ fi
 _runing "$sao_luu_ma_nguon website $NAME"
 echo ''
 if [[ -d /usr/local/lsws/"$NAME"/html/web/app ]]; then
-    cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env -x "app/ai1wm-backups/*" -x "app/cache/*" -x "app/updraft/*" -x "app/ai1wm-backups/*" -x "error_log" -x "app/debug.log" -x "app/uploads/backupbuddy_backups/*" -x "app/backups-dup-pro/*" -x "app/backups-dup-lite/*"
+    cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env \
+        -x "phpmyadmin/*" \
+        -x "app/ai1wm-backups/*" \
+        -x "app/cache/*" \
+        -x "app/updraft/*" \
+        -x "app/ai1wm-backups/*" \
+        -x "error_log" \
+        -x "app/debug.log" \
+        -x "app/uploads/backupbuddy_backups/*" \
+        -x "app/backups-dup-pro/*" \
+        -x "app/backups-dup-lite/*"
 elif [[ -d /usr/local/lsws/"$NAME"/html/wp-content ]]; then
-    cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env -x "wp-content/ai1wm-backups/*" -x "wp-content/cache/*" -x "wp-content/updraft/*" -x "wp-content/ai1wm-backups/*" -x "error_log" -x "wp-content/debug.log" -x "wp-content/uploads/backupbuddy_backups/*" -x "wp-content/backups-dup-pro/*" -x "wp-content/backups-dup-lite/*"
+    cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env \
+        -x "phpmyadmin/*" \
+        -x "wp-content/ai1wm-backups/*" \
+        -x "wp-content/cache/*" \
+        -x "wp-content/updraft/*" \
+        -x "wp-content/ai1wm-backups/*" \
+        -x "error_log" \
+        -x "wp-content/debug.log" \
+        -x "wp-content/uploads/backupbuddy_backups/*" \
+        -x "wp-content/backups-dup-pro/*" \
+        -x "wp-content/backups-dup-lite/*"
 fi
+
 
 if [[ -f /usr/local/backup-website/$NAME/$NAME$times.zip ]];then
 _rundone "$sao_luu_ma_nguon website $NAME"
@@ -158,14 +179,14 @@ if [[ $checkdathietlap ]]; then
 		_runing "file backup uploads Google Drive"
 			fi
 
-        truoc_khi=$(rclone size wptangtoc:hncore_backup)
-		rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.zip wptangtoc:hncore_backup/$NAME
-		if [[ $sql_gz = '' ]];then
-			rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.sql wptangtoc:hncore_backup/$NAME
+        truoc_khi=$(rclone size wptangtoc:wptangtoc_ols_backup)
+		rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.zip wptangtoc:wptangtoc_ols_backup/$NAME
+		if [[ $sql_gz == '' ]]; then
+			rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.sql wptangtoc:wptangtoc_ols_backup/$NAME
 		fi
 
 		if [[ $sql_gz ]];then
-			rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.sql.gz wptangtoc:hncore_backup/$NAME
+			rclone copy /usr/local/backup-website/"$NAME"/$NAME$times.sql.gz wptangtoc:wptangtoc_ols_backup/$NAME
 		fi
 
 		if [[ $(cat ~/.config/rclone/rclone.conf | grep 'onedrive') ]];then
@@ -209,7 +230,7 @@ if [[ $checkdathietlap ]]; then
 		if [[ "$clearfile" = "y" || "$ggdriver2" = "1998" ]]; then
 			_runing "$xoa file backup tại local"
 			rm -f /usr/local/backup-website/"$NAME"/$NAME$times.zip
-			if [[ $sql_gz = '' ]];then
+			if [[ $sql_gz == '' ]]; then
 				rm -f /usr/local/backup-website/"$NAME"/$NAME$times.sql
 			fi
 			if [[ $sql_gz ]];then
