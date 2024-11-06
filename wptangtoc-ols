@@ -19,4 +19,4 @@ else
 fi
 
 rm -f wptangtoc-ols
-curl -sO https://github.com/hncore/wptangtoc-ols/raw/refs/heads/main/wptangtoc-ols-$SERVER_OS && bash wptangtoc-ols-$SERVER_OS $1
+curl -sO https://raw.githubusercontent.com/hncore/wptangtoc-ols/refs/heads/main/wptangtoc-ols-$SERVER_OS && bash wptangtoc-ols-$SERVER_OS $1
