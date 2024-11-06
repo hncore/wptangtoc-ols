@@ -177,7 +177,12 @@ $(tput setab 0)-//- $nhap_lua_chon_cua_ban [0=$exit_thoat]:$(tput sgr0) "
 		echo "Website_chinh=$NAMEPHU" >>/etc/wptt/.wptt.conf
 		rm -rf /etc/wptt/vhost2
 		if [[ $id_dang_nhap_phpmyadmin ]]; then
-			cp -rf /usr/local/lsws/"$CLEAN"/html/phpmyadmin /usr/local/lsws/"$NAMEPHU"/html/
+			if [[ -d /usr/local/lsws/"$CLEAN"/html/web/phpmyadmin ]]; then
+				cp -rf /usr/local/lsws/"$CLEAN"/html/web/phpmyadmin /usr/local/lsws/"$NAMEPHU"/html/web/
+			elif [[ -d /usr/local/lsws/"$CLEAN"/html/phpmyadmin ]]; then
+				cp -rf /usr/local/lsws/"$CLEAN"/html/phpmyadmin /usr/local/lsws/"$NAMEPHU"/html/
+			fi
+
 			mkdir -p /usr/local/lsws/"$NAMEPHU"/passwd
 			cp -f /usr/local/lsws/"$Website_chinh"/passwd/.phpmyadmin /usr/local/lsws/"$NAMEPHU"/passwd
 

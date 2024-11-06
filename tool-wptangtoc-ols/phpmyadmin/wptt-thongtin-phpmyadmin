@@ -17,11 +17,12 @@ echo ""
 
 . /etc/wptt/echo-color
 
-if [[ $id_dang_nhap_phpmyadmin = "" || ! -d /usr/local/lsws/$Website_chinh/html/phpmyadmin ]];then
-echoDo "$ban_chua_kich_hoat PhpMyAdmin"
-sleep 3
+if [[ $id_dang_nhap_phpmyadmin = "" || ( ! -d /usr/local/lsws/$Website_chinh/html/web/phpmyadmin && ! -d /usr/local/lsws/$Website_chinh/html/phpmyadmin ) ]]; then
+    . /etc/wptt/echo-color
+    echoDo "$ban_chua_kich_hoat PhpMyAdmin"
+    sleep 3
     . /etc/wptt/wptt-phpmyadmin-main 1
-exit
+    exit
 fi
 
 echo "$tai_khoan $truy_cap PhpMyAdmin"

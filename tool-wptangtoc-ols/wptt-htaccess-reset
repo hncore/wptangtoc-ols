@@ -154,9 +154,12 @@ else
 tuong_thich_nhom_litespeed="nobody"
 fi
 
-if [[ $id_dang_nhap_phpmyadmin && $Website_chinh = $NAME && -d /usr/local/lsws/"$NAME"/html/phpmyadmin ]];then
-chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/"$NAME"/html/phpmyadmin
+if [[ $id_dang_nhap_phpmyadmin && $Website_chinh = $NAME && -d /usr/local/lsws/"$NAME"/html/web/phpmyadmin ]]; then
+    chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/"$NAME"/html/web/phpmyadmin
+elif [[ $id_dang_nhap_phpmyadmin && $Website_chinh = $NAME && -d /usr/local/lsws/"$NAME"/html/phpmyadmin ]]; then
+    chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/"$NAME"/html/phpmyadmin
 fi
+
 
 _rundone "Phân quyền website $NAME"
 

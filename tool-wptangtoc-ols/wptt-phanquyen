@@ -101,9 +101,12 @@ tuong_thich_nhom_litespeed="nobody"
 fi
 
 
-if [[ -d /usr/local/lsws/"$NAME"/html/phpmyadmin && $Website_chinh = $NAME ]];then
-chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/"$NAME"/html/phpmyadmin
+if [[ -d /usr/local/lsws/"$NAME"/html/web/phpmyadmin && $Website_chinh = $NAME ]]; then
+    chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/"$NAME"/html/web/phpmyadmin
+elif [[ -d /usr/local/lsws/"$NAME"/html/phpmyadmin && $Website_chinh = $NAME ]]; then
+    chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/"$NAME"/html/phpmyadmin
 fi
+
 
 
 /usr/local/lsws/bin/lswsctrl restart >/dev/null 2>&1

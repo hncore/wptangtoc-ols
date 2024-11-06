@@ -23,14 +23,18 @@ echo ""
 fi
 
 . /etc/wptt/echo-color
-if [[ $id_dang_nhap_phpmyadmin = "" || ! -d /usr/local/lsws/$Website_chinh/html/phpmyadmin ]];then
+if [[ $id_dang_nhap_phpmyadmin = "" || ( ! -d /usr/local/lsws/$Website_chinh/html/web/phpmyadmin && ! -d /usr/local/lsws/$Website_chinh/html/phpmyadmin ) ]]; then
 echoDo "$ban_chua_kich_hoat PhpMyAdmin"
 sleep 3
     . /etc/wptt/wptt-phpmyadmin-main 1
 exit
 fi
 
-check_version=$(ls /usr/local/lsws/$Website_chinh/html/phpmyadmin | grep 'RELEASE-DATE-' | sed 's/RELEASE-DATE-//g') 
+if [[ -d /usr/local/lsws/$Website_chinh/html/web/phpmyadmin ]]; then
+    check_version=$(ls /usr/local/lsws/$Website_chinh/html/web/phpmyadmin | grep 'RELEASE-DATE-' | sed 's/RELEASE-DATE-//g')
+elif [[ -d /usr/local/lsws/$Website_chinh/html/phpmyadmin ]]; then
+    check_version=$(ls /usr/local/lsws/$Website_chinh/html/phpmyadmin | grep 'RELEASE-DATE-' | sed 's/RELEASE-DATE-//g')
+fi
 
 phpmyadmin_version=5.2.1
 
@@ -79,21 +83,48 @@ select opt in "${options[@]}"; do
 done
 
 
-if [[ $dongy = 'y' ]];then
-_runing "$cap_nhat PhpMyadmin $phien_ban $phpmyadmin_version"
-rm -rf /usr/local/lsws/$Website_chinh/html/phpmyadmin
-rm -rf /usr/local/lsws/phpmyadmin
-cd /usr/local/lsws/$Website_chinh/html
-wget -P /usr/local/lsws/$Website_chinh/html https://files.phpmyadmin.net/phpMyAdmin/$phpmyadmin_version/phpMyAdmin-$phpmyadmin_version-all-languages.zip --no-check-certificate >/dev/null 2>&1
-unzip -q /usr/local/lsws/$Website_chinh/html/phpMyAdmin-$phpmyadmin_version-all-languages.zip
-mv /usr/local/lsws/$Website_chinh/html/phpMyAdmin-$phpmyadmin_version-all-languages /usr/local/lsws/$Website_chinh/html/phpmyadmin
-rm -f /usr/local/lsws/$Website_chinh/html/phpMyAdmin-$phpmyadmin_version-all-languages.zip
-cp -f /usr/local/lsws/$Website_chinh/html/phpmyadmin/config.sample.inc.php /usr/local/lsws/$Website_chinh/html/phpmyadmin/config.inc.php
-mkdir -p /usr/local/lsws/phpmyadmin
-secret=$(openssl rand -base64 32)
-echo "\$cfg['TempDir'] = '/usr/local/lsws/phpmyadmin';" >> /usr/local/lsws/$Website_chinh/html/phpmyadmin/config.inc.php
-echo "\$cfg['blowfish_secret'] = '$secret';" >> /usr/local/lsws/$Website_chinh/html/phpmyadmin/config.inc.php
+if [[ $dongy = 'y' ]]; then
+    _runing "$cap_nhat PhpMyAdmin $phien_ban $phpmyadmin_version"
+    
+    # Xóa thư mục phpmyadmin cũ
+    if [[ -d /usr/local/lsws/$Website_chinh/html/web/phpmyadmin ]]; then
+        rm -rf /usr/local/lsws/$Website_chinh/html/web/phpmyadmin
+    elif [[ -d /usr/local/lsws/$Website_chinh/html/phpmyadmin ]]; then
+        rm -rf /usr/local/lsws/$Website_chinh/html/phpmyadmin
+    fi
+    
+    # Xóa thư mục tạm
+    rm -rf /usr/local/lsws/phpmyadmin
 
+    # Kiểm tra và tải phpMyAdmin vào đúng thư mục
+    if [[ -d /usr/local/lsws/$Website_chinh/html/web ]]; then
+        cd /usr/local/lsws/$Website_chinh/html/web
+        wget -P /usr/local/lsws/$Website_chinh/html/web https://files.phpmyadmin.net/phpMyAdmin/$phpmyadmin_version/phpMyAdmin-$phpmyadmin_version-all-languages.zip --no-check-certificate >/dev/null 2>&1
+        unzip -q /usr/local/lsws/$Website_chinh/html/web/phpMyAdmin-$phpmyadmin_version-all-languages.zip
+        mv /usr/local/lsws/$Website_chinh/html/web/phpMyAdmin-$phpmyadmin_version-all-languages /usr/local/lsws/$Website_chinh/html/web/phpmyadmin
+        rm -f /usr/local/lsws/$Website_chinh/html/web/phpMyAdmin-$phpmyadmin_version-all-languages.zip
+        cp -f /usr/local/lsws/$Website_chinh/html/web/phpmyadmin/config.sample.inc.php /usr/local/lsws/$Website_chinh/html/web/phpmyadmin/config.inc.php
+    else
+        cd /usr/local/lsws/$Website_chinh/html
+        wget -P /usr/local/lsws/$Website_chinh/html https://files.phpmyadmin.net/phpMyAdmin/$phpmyadmin_version/phpMyAdmin-$phpmyadmin_version-all-languages.zip --no-check-certificate >/dev/null 2>&1
+        unzip -q /usr/local/lsws/$Website_chinh/html/phpMyAdmin-$phpmyadmin_version-all-languages.zip
+        mv /usr/local/lsws/$Website_chinh/html/phpMyAdmin-$phpmyadmin_version-all-languages /usr/local/lsws/$Website_chinh/html/phpmyadmin
+        rm -f /usr/local/lsws/$Website_chinh/html/phpMyAdmin-$phpmyadmin_version-all-languages.zip
+        cp -f /usr/local/lsws/$Website_chinh/html/phpmyadmin/config.sample.inc.php /usr/local/lsws/$Website_chinh/html/phpmyadmin/config.inc.php
+    fi
+
+    # Tạo thư mục tạm và thêm cấu hình
+    mkdir -p /usr/local/lsws/phpmyadmin
+    secret=$(openssl rand -base64 32)
+    
+    if [[ -d /usr/local/lsws/$Website_chinh/html/web/phpmyadmin ]]; then
+        echo "\$cfg['TempDir'] = '/usr/local/lsws/phpmyadmin';" >> /usr/local/lsws/$Website_chinh/html/web/phpmyadmin/config.inc.php
+        echo "\$cfg['blowfish_secret'] = '$secret';" >> /usr/local/lsws/$Website_chinh/html/web/phpmyadmin/config.inc.php
+    else
+        echo "\$cfg['TempDir'] = '/usr/local/lsws/phpmyadmin';" >> /usr/local/lsws/$Website_chinh/html/phpmyadmin/config.inc.php
+        echo "\$cfg['blowfish_secret'] = '$secret';" >> /usr/local/lsws/$Website_chinh/html/phpmyadmin/config.inc.php
+    fi
+fi
 		#tuong thich ubuntu tuong thich nhom litespeed
 if $(cat /etc/*release | grep -q "Ubuntu") ; then
 tuong_thich_nhom_litespeed="nogroup"
@@ -102,7 +133,11 @@ tuong_thich_nhom_litespeed="nobody"
 fi
 
 chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/phpmyadmin
-chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/$Website_chinh/html/phpmyadmin
+if [[ -d /usr/local/lsws/$Website_chinh/html/web/phpmyadmin ]]; then
+    chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/$Website_chinh/html/web/phpmyadmin
+elif [[ -d /usr/local/lsws/$Website_chinh/html/phpmyadmin ]]; then
+    chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/$Website_chinh/html/phpmyadmin
+fi
 chmod 555 /usr/local/lsws/phpmyadmin
 _rundone "$cap_nhat PhpMyadmin $phien_ban $phpmyadmin_version"
 fi

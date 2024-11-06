@@ -136,9 +136,16 @@ fi
 
 #tuong thich tuong lua 8G voi phpmyadmin
 . /etc/wptt/.wptt.conf
-if [[ $Website_chinh = "$NAME" && -d /usr/local/lsws/$NAME/html/phpmyadmin ]];then
-sed -i 's/#query_wptt/RewriteCond %{REQUEST_URI} !^\/phpmyadmin\/index\\.php$ [NC]/g' /usr/local/lsws/$NAME/html/.htaccess
+if [[ -d /usr/local/lsws/$NAME/html/web ]]; then
+    if [[ $Website_chinh = "$NAME" && -d /usr/local/lsws/$NAME/html/web/phpmyadmin ]]; then
+        sed -i 's/#query_wptt/RewriteCond %{REQUEST_URI} !^\/phpmyadmin\/index\\.php$ [NC]/g' /usr/local/lsws/$NAME/html/web/.htaccess
+    fi
+else
+    if [[ $Website_chinh = "$NAME" && -d /usr/local/lsws/$NAME/html/phpmyadmin ]]; then
+        sed -i 's/#query_wptt/RewriteCond %{REQUEST_URI} !^\/phpmyadmin\/index\\.php$ [NC]/g' /usr/local/lsws/$NAME/html/.htaccess
+    fi
 fi
+
 
 /usr/local/lsws/bin/lswsctrl restart >/dev/null 2>&1
 echoDone "Hoàn tất kích hoạt tường lửa 8G cho website $NAME"

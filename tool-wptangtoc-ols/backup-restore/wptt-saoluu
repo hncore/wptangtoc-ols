@@ -101,7 +101,7 @@ fi
 
 _runing "$sao_luu_ma_nguon website $NAME"
 echo ''
-cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * -x "wp-content/ai1wm-backups/*" -x "wp-content/cache/*" -x "wp-content/updraft/*" -x "wp-content/ai1wm-backups/*" -x "error_log" -x "wp-content/debug.log" -x "wp-content/uploads/backupbuddy_backups/*" -x "wp-content/backups-dup-pro/*" -x "wp-content/backups-dup-lite/*"
+cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/backup-website/$NAME/$NAME$times.zip * .htaccess .env -x "wp-content/ai1wm-backups/*" -x "wp-content/cache/*" -x "wp-content/updraft/*" -x "wp-content/ai1wm-backups/*" -x "error_log" -x "wp-content/debug.log" -x "wp-content/uploads/backupbuddy_backups/*" -x "wp-content/backups-dup-pro/*" -x "wp-content/backups-dup-lite/*"
 
 if [[ -f /usr/local/backup-website/$NAME/$NAME$times.zip ]];then
 _rundone "$sao_luu_ma_nguon website $NAME"

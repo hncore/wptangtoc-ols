@@ -84,8 +84,8 @@ else
 tuong_thich_nhom_litespeed="nobody"
 fi
 
-if [[ $id_dang_nhap_phpmyadmin && $Website_chinh = $domain && -d /usr/local/lsws/"$domain"/html/phpmyadmin ]];then
-chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/"$domain"/html/phpmyadmin
+if [[ $id_dang_nhap_phpmyadmin && $Website_chinh = $domain && -d /usr/local/lsws/"$domain"/html/web/phpmyadmin ]];then
+chown -R nobody:$tuong_thich_nhom_litespeed /usr/local/lsws/"$domain"/html/web/phpmyadmin
 fi
 
 _rundone "$phan_quyen website $domain"

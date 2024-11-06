@@ -27,7 +27,11 @@ exit
 fi
 
 _runing "$xoa PhpMyadmin"
-rm -rf /usr/local/lsws/$Website_chinh/html/phpmyadmin
+if [[ -d /usr/local/lsws/$Website_chinh/html/web/phpmyadmin ]]; then
+    rm -rf /usr/local/lsws/$Website_chinh/html/web/phpmyadmin
+elif [[ -d /usr/local/lsws/$Website_chinh/html/phpmyadmin ]]; then
+    rm -rf /usr/local/lsws/$Website_chinh/html/phpmyadmin
+fi
 rm -f /usr/local/lsws/"$Website_chinh"/passwd/.phpmyadmin
 sed -i "/id_dang_nhap_phpmyadmin/d" /etc/wptt/.wptt.conf
 sed -i "/password_dang_nhap_phpmyadmin/d" /etc/wptt/.wptt.conf

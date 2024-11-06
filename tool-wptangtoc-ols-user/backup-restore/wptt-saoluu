@@ -77,7 +77,7 @@ fi
 
 _runing "Sao lưu mã nguồn website $NAME"
 echo ''
-cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/lsws/$NAME/backup-website/$NAME$times.zip * -x "wp-content/ai1wm-backups/*" -x "wp-content/cache/*" -x "wp-content/updraft/*" -x "wp-content/ai1wm-backups/*" -x "error_log" -x "wp-content/debug.log" -x "wp-content/uploads/backupbuddy_backups/*" -x "wp-content/backups-dup-pro/*"
+cd /usr/local/lsws/"$NAME"/html && zip -r /usr/local/lsws/$NAME/backup-website/$NAME$times.zip * .htaccess .env -x "wp-content/ai1wm-backups/*" -x "wp-content/cache/*" -x "wp-content/updraft/*" -x "error_log" -x "wp-content/debug.log" -x "wp-content/uploads/backupbuddy_backups/*" -x "wp-content/backups-dup-pro/*"
 
 if [[ -f /usr/local/lsws/$NAME/backup-website/$NAME$times.zip ]];then
 _rundone "Sao lưu mã nguồn website $NAME"
