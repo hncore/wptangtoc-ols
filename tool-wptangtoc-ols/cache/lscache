@@ -3,7 +3,7 @@ echo ""
 echo ""
 echo ""
 echo "========================================================================="
-echo "|Quản lý Cache => Kích hoạt LScache 	                                  |"
+echo "|Quản lý Cache => Kích hoạt LScache                                     |"
 echo "========================================================================="
 . /etc/wptt/tenmien
 echo ""
@@ -19,95 +19,99 @@ fi
 pathcheck="/etc/wptt/vhost/.$NAME.conf"
 if [[ ! -f "$pathcheck" ]]; then
     clear
-	echoDo "Tên miền không tồn tại trên hệ thống này"
+    echoDo "Tên miền không tồn tại trên hệ thống này"
     sleep 3
     . /etc/wptt/wptt-cache-main 1
     exit
 fi
 
+# Kiểm tra tệp wp-load.php trong cả hai cấu trúc
 pathcheckwp="/usr/local/lsws/$NAME/html/wp-load.php"
-if [[ ! -f "$pathcheckwp" ]]; then
+pathcheckwp_app="/usr/local/lsws/$NAME/html/web/wp-load.php"
+if [[ ! -f "$pathcheckwp" && ! -f "$pathcheckwp_app" ]]; then
   clear
   echoDo "Hệ thống xác nhận bạn không sử dụng WordPress"
-  echoDo "Tính năng này chỉcó thể hoạt động trên WordPress"
+  echoDo "Tính năng này chỉ có thể hoạt động trên WordPress"
   sleep 3
   . /etc/wptt/wptt-cache-main 1
   exit
 fi
 
-
-pathcheckplugin="/usr/local/lsws/$NAME/html/wp-content/plugins/litespeed-cache"
-if [[ -d "$pathcheckplugin" ]]; then
-echo "Bạn đã sử dụng plugin LiteSpeed cache WordPress thì đã được kích hoạt LSCache rồi"
-echo "Tốt nhất bạn hãy sử dụng plugin LiteSpeed cache WordPress để kích hoạt để bạn có thể dễ dàng sử dụng và tùy biến để sử dụng lscache hiệu quả hơn" 
-  . /etc/wptt/wptt-wordpress-main 1
+# Kiểm tra plugin LiteSpeed Cache trong cả hai cấu trúc
+pathcheckplugin_wp="/usr/local/lsws/$NAME/html/wp-content/plugins/litespeed-cache"
+pathcheckplugin_app="/usr/local/lsws/$NAME/html/web/app/plugins/litespeed-cache"
+if [[ -d "$pathcheckplugin_wp" || -d "$pathcheckplugin_app" ]]; then
+    echo "Bạn đã sử dụng plugin LiteSpeed cache WordPress thì đã được kích hoạt LSCache rồi"
+    echo "Tốt nhất bạn hãy sử dụng plugin LiteSpeed cache WordPress để kích hoạt để bạn có thể dễ dàng sử dụng và tùy biến để sử dụng lscache hiệu quả hơn" 
+    . /etc/wptt/wptt-wordpress-main 1
     exit
 fi
 
-
-
 pluginsspeed=(
-	cache-enabler
-	wp-rocket
-	w3-total-cache
-	wp-super-cache
-	wp2speed
-	nitropack
-	wp-fastest-cache
-	hummingbird-performance
-	swift-performance-lite
-	swift-performance-pro
-	cache-enabler
-	sg-cachepress
-	breeze
-	wp-meteor
-	phastpress
-	flying-press
-	comet-cache
-	powered-cache
-	borlabs-cache
-	hyper-cache
-	wp-speed-of-light
-	surge
-	nginx-helper
-	)
+    cache-enabler
+    wp-rocket
+    w3-total-cache
+    wp-super-cache
+    wp2speed
+    nitropack
+    wp-fastest-cache
+    hummingbird-performance
+    swift-performance-lite
+    swift-performance-pro
+    cache-enabler
+    sg-cachepress
+    breeze
+    wp-meteor
+    phastpress
+    flying-press
+    comet-cache
+    powered-cache
+    borlabs-cache
+    hyper-cache
+    wp-speed-of-light
+    surge
+    nginx-helper
+)
 
 for plugintt in ${pluginsspeed[@]}
 do
-	pathcheckplugin3="/usr/local/lsws/$NAME/html/wp-content/plugins/$plugintt"
-if [[ -d "$pathcheckplugin3" ]]; then
-    echo "Bạn đã sử dụng plugin $plugintt WordPress thì không nên kích hoạt LScache để tránh bị xung đột"
-    echo "Nếu bạn muốn sử dụng Lscache thì hãy vui lòng plugin $plugintt đi"
-  . /etc/wptt/wptt-cache-main 1
-fi
-
+    pathcheckplugin3_wp="/usr/local/lsws/$NAME/html/wp-content/plugins/$plugintt"
+    pathcheckplugin3_app="/usr/local/lsws/$NAME/html/web/app/plugins/$plugintt"
+    if [[ -d "$pathcheckplugin3_wp" || -d "$pathcheckplugin3_app" ]]; then
+        echo "Bạn đã sử dụng plugin $plugintt WordPress thì không nên kích hoạt LScache để tránh bị xung đột"
+        echo "Nếu bạn muốn sử dụng Lscache thì hãy vui lòng gỡ plugin $plugintt đi"
+        . /etc/wptt/wptt-cache-main 1
+        exit
+    fi
 done
 
-echo "Tốt nhất bạn hãy sử dụng plugin LiteSpeed cache WordPress để kích hoạt để bạn có thể dễ dàng sử dụng và tùy biến để sử dụng lscache hiệu quả hơn" 
+echo "Tốt nhất bạn hãy sử dụng plugin LiteSpeed cache WordPress để kích hoạt để bạn có thể dễ dàng sử dụng và tùy biến để sử dụng lscache hiệu quả hơn"
 
 read -p "Bạn muốn kích hoạt LSCache bằng .htaccess? (y/n): " check
 if [[ "$check" = "y" ]]; then
-	_runing "Kích hoạt LSCache bằng .htaccess cho website $NAME"
-    path="/usr/local/lsws/$NAME/html"
+    _runing "Kích hoạt LSCache bằng .htaccess cho website $NAME"
+    if [[ -d "/usr/local/lsws/$NAME/html/web/app" ]]; then
+        path="/usr/local/lsws/$NAME/html/web"
+    else
+        path="/usr/local/lsws/$NAME/html"
+    fi
+    
     sed -i '1 i <IfModule LiteSpeed>\
 CacheEnable public /\
 RewriteEngine on\
 RewriteCond %{REQUEST_METHOD} ^(HEAD|GET)$\
 RewriteCond %{REQUEST_URI} !^/(wp-admin|wp-login.php|wp-cron.php)\
 RewriteRule .* - [E=Cache-Control:max-age=7200]\
-</IfModule>' /usr/local/lsws/$NAME/html/.htaccess
+</IfModule>' "$path/.htaccess"
 
-    wp_config="/usr/local/lsws/$NAME/html/wp-config.php"
+    wp_config="$path/wp-config.php"
     sed -i "/WP_CACHE/d" $wp_config
     sed -i "/<?php/a define( 'WP_CACHE', true );" $wp_config
     /usr/local/lsws/bin/lswsctrl restart >/dev/null 2>&1
-	_rundone "Kích hoạt LSCache bằng .htaccess cho website $NAME"
+    _rundone "Kích hoạt LSCache bằng .htaccess cho website $NAME"
 fi
-
-
 
 check_menu_wptangtoc_active=$1
-if [[ $check_menu_wptangtoc_active = "99" ]];then
-. /etc/wptt/wptt-cache-main 1
+if [[ $check_menu_wptangtoc_active = "99" ]]; then
+    . /etc/wptt/wptt-cache-main 1
 fi
-

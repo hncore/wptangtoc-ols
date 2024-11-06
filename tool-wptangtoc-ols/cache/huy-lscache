@@ -3,7 +3,7 @@ echo ""
 echo ""
 echo ""
 echo "========================================================================="
-echo "|Quan ly Cache => Huy kich hoat LScache 	                              |"
+echo "|Quan ly Cache => Huy kich hoat LScache                                  |"
 echo "========================================================================="
 . /etc/wptt/tenmien
 echo ""
@@ -26,20 +26,28 @@ if [[ "$grep" = "" || "$grep" = "0" ]]; then
     exit
 fi
 
-pathcheckplugin="/usr/local/lsws/$NAME/html/wp-content/plugins/litespeed-cache"
-if [[ -d "$pathcheckplugin" ]]; then
+# Kiểm tra plugin LiteSpeed Cache
+pathcheckplugin_wp="/usr/local/lsws/$NAME/html/wp-content/plugins/litespeed-cache"
+pathcheckplugin_app="/usr/local/lsws/$NAME/html/web/app/plugins/litespeed-cache"
+
+if [[ -d "$pathcheckplugin_wp" || -d "$pathcheckplugin_app" ]]; then
     echo "Ban da kich hoat lscache bang plugin LiteSpeed cache"
     read -p "Ban muon huy xoa plugin LiteSpeed cache de tat lscache? (y/n): " check123
     if [[ "$check123" = "y" ]]; then
-        wp plugin delete litespeed-cache --path="/usr/local/lsws/$NAME/html" --allow-root
-        echo "Hoan tat xoa plugin plugin LiteSpeed Cache va tat lscache"
+        if [[ -d "$pathcheckplugin_wp" ]]; then
+            wp plugin delete litespeed-cache --path="/usr/local/lsws/$NAME/html" --allow-root
+        elif [[ -d "$pathcheckplugin_app" ]]; then
+            wp plugin delete litespeed-cache --path="/usr/local/lsws/$NAME/html/web/app" --allow-root
+        fi
+        echo "Hoan tat xoa plugin LiteSpeed Cache va tat lscache"
         /usr/local/lsws/bin/lswsctrl restart
     fi
     clear
-. /etc/wptt/wptt-cache-main 1
+    . /etc/wptt/wptt-cache-main 1
     exit
 fi
 
+# Xử lý việc xóa cấu hình LScache trong .htaccess
 read -p "Ban muon huy kich hoat LSCache bang .htaccess? (y/n): " check
 if [[ "$check" = "y" ]]; then
     sed -i '/IfModule LiteSpeed/,+6d' /usr/local/lsws/"$NAME"/html/.htaccess
@@ -48,7 +56,6 @@ if [[ "$check" = "y" ]]; then
 fi
 
 check_menu_wptangtoc_active=$1
-if [[ $check_menu_wptangtoc_active = "98" ]];then
-. /etc/wptt/wptt-cache-main 1
+if [[ $check_menu_wptangtoc_active = "98" ]]; then
+    . /etc/wptt/wptt-cache-main 1
 fi
-

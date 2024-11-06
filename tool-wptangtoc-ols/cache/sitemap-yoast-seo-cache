@@ -15,18 +15,20 @@ NAME=""
 fi
 
 if [[ "$NAME" = "" ]]; then
-	. /etc/wptt/tenmien
-	echo ""
-	echo ""
-	echo "Lựa chọn website bạn muốn add sitemap yoast seo cache: "
-	echo ""
-	lua_chon_NAME
+    . /etc/wptt/tenmien
+    echo ""
+    echo ""
+    echo "Lựa chọn website bạn muốn add sitemap yoast seo cache: "
+    echo ""
+    lua_chon_NAME
 
-	if [[ ! -f /usr/local/lsws/$NAME/html/sitemap_index.xml ]];then
-		echo "Chưa được cài đặt page cache sitemap"
-		exit
-	fi
+    # Kiểm tra tệp sitemap trong cả hai cấu trúc
+    if [[ ! -f /usr/local/lsws/$NAME/html/sitemap_index.xml && ! -f /usr/local/lsws/$NAME/html/web/sitemap_index.xml ]]; then
+        echo "Chưa được cài đặt page cache sitemap"
+        exit
+    fi
 fi
+
 
 # if [[ $(cat /usr/local/lsws/$NAME/html/.htaccess | grep 'cache/wptangtoc') ]];then
 # echo "Đã kích hoạt page cache htaccess wptangtoc trước đó rồi"
